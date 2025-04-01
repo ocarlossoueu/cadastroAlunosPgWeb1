@@ -1,11 +1,19 @@
+// ---------------------------------------------- 
+// | --------- Alunos --------- | ---- RGA ---- |
+// | Carlos Armaral de Amarijo  | 202111640038  |
+// | Eduardo Santos Dutra       | 202121640030  |
+// ----------------------------------------------
+
 "use client";
 
 import { useState } from 'react';
 
+// Optamos por colocar tudo dentro de uma única função geral
 export default function Home() {
   const [alunos, setAlunos] = useState([]);
-  const [nextId, setNextId] = useState(1);
+  const [proximoId, setProximoId] = useState(1);
 
+//Aqui setamos alguns nomes para que seleção aleatória dentro das constantes
   const nomes = ['Ana Nascimento', 'Bruno Aquino', 'Carlos Amarijo', 'Danielle Rodrigues', 'Eduardo Santos', 'Maikon Bueno', 'Paula Togo'];
   const cursos = [
     'Engenharia',
@@ -18,8 +26,8 @@ export default function Home() {
   ];
 
   function gerarAluno() {
-    const id = nextId;
-    setNextId(id + 1);
+    const id = proximoId;
+    setProximoId(id + 1);
     const nome = nomes[Math.floor(Math.random() * nomes.length)];
     const curso = cursos[Math.floor(Math.random() * cursos.length)];
     const semestre = Math.floor(Math.random() * 8) + 1;
@@ -32,9 +40,10 @@ export default function Home() {
     setAlunos([...alunos, novoAluno]);
   }
 
+  //Achamos interessante adicionar mais um botão ao gerador: Limpeza total da tabela, sem precisar dar refresh na página
   function botaoLimpar() {
     setAlunos([]);
-    setNextId(1);
+    setProximoId(1);
   }
 
   return (
