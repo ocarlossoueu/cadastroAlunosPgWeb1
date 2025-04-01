@@ -36,8 +36,8 @@ export default function Home() {
   }
 
   function botaoAdicionar() {
-    const novoAluno = gerarAluno();
-    setAlunos([...alunos, novoAluno]);
+    const novoAluo = gerarAluno();
+    setAlunos([...alunos, novoAluo]);
   }
 
   //Achamos interessante adicionar mais um botão ao gerador: Limpeza total da tabela, sem precisar dar refresh na página
