@@ -1,103 +1,90 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from 'react';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [alunos, setAlunos] = useState([]);
+  const [nextId, setNextId] = useState(1);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+  const nomes = ['Ana Nascimento', 'Bruno Aquino', 'Carlos Amarijo', 'Danielle Rodrigues', 'Eduardo Santos', 'Maikon Bueno', 'Paula Togo'];
+  const cursos = [
+    'Engenharia',
+    'Ciência da Computação',
+    'Administração',
+    'Direito',
+    'Medicina',
+    'Sistemas da Informação',
+    'Física'
+  ];
+
+  function gerarAluno() {
+    const id = nextId;
+    setNextId(id + 1);
+    const nome = nomes[Math.floor(Math.random() * nomes.length)];
+    const curso = cursos[Math.floor(Math.random() * cursos.length)];
+    const semestre = Math.floor(Math.random() * 8) + 1;
+    const anoIngresso = Math.floor(Math.random() * 10) + 2010;
+    return { id, nome, curso, semestre, anoIngresso };
+  }
+
+  function botaoAdicionar() {
+    const novoAluno = gerarAluno();
+    setAlunos([...alunos, novoAluno]);
+  }
+
+  function botaoLimpar() {
+    setAlunos([]);
+    setNextId(1);
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50 flex flex-col items-center p-8">
+      <h1 className="text-3xl font-semibold text-gray-800 mb-6">Cadastro de Alunos</h1>
+      <div className="flex gap-4 mb-6">
+        <button
+          onClick={botaoAdicionar}
+          className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded shadow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400"
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          Adicionar
+        </button>
+        <button
+          onClick={botaoLimpar}
+          className="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded shadow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-red-400"
         >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          Limpar
+        </button>
+      </div>
+      <div className="overflow-x-auto w-full max-w-4xl">
+        <table className="min-w-full bg-white rounded-lg shadow">
+          <thead>
+            <tr>
+              <th className="py-3 px-5 bg-gray-200 text-gray-600 font-medium text-left">ID</th>
+              <th className="py-3 px-5 bg-gray-200 text-gray-600 font-medium text-left">Nome</th>
+              <th className="py-3 px-5 bg-gray-200 text-gray-600 font-medium text-left">Curso</th>
+              <th className="py-3 px-5 bg-gray-200 text-gray-600 font-medium text-left">Semestre</th>
+              <th className="py-3 px-5 bg-gray-200 text-gray-600 font-medium text-left">Ano de Ingresso</th>
+            </tr>
+          </thead>
+          <tbody>
+            {alunos.map((aluno) => (
+              <tr key={aluno.id} className="border-t border-gray-200">
+                <td className="py-3 px-5 text-gray-700">{aluno.id}</td>
+                <td className="py-3 px-5 text-gray-700">{aluno.nome}</td>
+                <td className="py-3 px-5 text-gray-700">{aluno.curso}</td>
+                <td className="py-3 px-5 text-gray-700">{aluno.semestre}</td>
+                <td className="py-3 px-5 text-gray-700">{aluno.anoIngresso}</td>
+              </tr>
+            ))}
+            {alunos.length === 0 && (
+              <tr>
+                <td colSpan="5" className="py-4 text-center text-gray-500">
+                  Nenhum aluno cadastrado.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
